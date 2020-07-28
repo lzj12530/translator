@@ -1,4 +1,4 @@
-## `Number`，`String`，`Boolean`和`Object`
+## `Number`，`String`，`Boolean`和`dc`
 
 *不要*使用如下类型`Number`，`String`，`Boolean`或`Object`。 这些类型指的是非原始的装盒对象，它们几乎没在JavaScript代码里正确地使用过。
 

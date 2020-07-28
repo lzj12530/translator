@@ -21,3 +21,33 @@
 .list code {
   background: #f7f7f7;
 }
+
+.md-content{
+  text-align: left;
+  padding: 10px;
+}
+.md-content img{
+  max-width: 100%;
+}
+.md-content *{
+  border: transparent 1px dashed;
+}
+
+.md-content *:hover{
+  border: #f56 1px dashed;
+}
+
+pre{
+  background-color: beige;
+  padding: 10px;
+}
+
+.src-content{
+  height: 200px;
+  background-color: azure;
+  padding: 10px;
+  text-align: left;
+}
+.target-content{
+  height: 100px;
+}
