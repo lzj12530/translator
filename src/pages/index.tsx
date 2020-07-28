@@ -2,10 +2,11 @@ import React, { useState, useRef } from 'react';
 import styles from './index.css';
 import { Row, Col, Input, Button, Layout } from 'antd';
 import md from '../../md/Object-Oriented Programming in JavaScript - CodeSource.io.md';
-import Markdown from 'markdown-to-jsx';
 import * as html2md from 'html-to-md';
 import * as marked from 'marked';
 import cuid from 'cuid';
+import * as md5 from 'md5';
+import store from 'store2';
 const { TextArea } = Input
 const { Content } = Layout
 export default function () {
@@ -13,8 +14,8 @@ export default function () {
   const [textMap, setTextMap] = useState({})
   const [textNode, setNode] = useState()
   const [targetText, setTargetText] = useState('')
-  const [innerHtml, setInnterHtml] = useState('')
   const [activeDataId,setActiveDataId] = useState('')
+  const [fileId, setFileId] = useState()
   const content = useRef(null);
   const onClick = function (e) {
     setNode(e.target)
@@ -35,6 +36,8 @@ export default function () {
     }
     setTargetText(textMap[dataId]?.target)
     setActiveDataId(dataId)
+    store.set(fileId, content.current.innerHTML)
+    store.set('textMap', textMap)
   }
   const changeText = ({ target }) => {
     setTargetText(target.value)
@@ -48,14 +51,24 @@ export default function () {
         target: targetText,
       }
     })
+    store.set('textMap', textMap)
     
   }
-  fetch(md).then(res => res.text()).then(text => {
-    if(!innerHtml) {
-      setInnterHtml(text)
-      content.current.innerHTML = marked(text)
-    }
+  fetch(md).then(res => {
+    return res.text()
+  }).then(text => {
     
+    if(!fileId) {
+      let id = md5(text)
+      setFileId(id)
+      if (store.has(id)) {
+        content.current.innerHTML = store.get(id)
+        console.log(store.get('textMap'))
+        setTextMap(store.get('textMap'))
+      } else {
+        content.current.innerHTML = marked(text)
+      }
+    }
   })
   const onTransfer = () => {
     // console.log(content.current.innerHTML);
@@ -67,7 +80,6 @@ export default function () {
         <Col span={12} style={{padding: 10}}>
           <h3>原文</h3>
           <div className={styles['md-content']} ref={content} onClick={onClick}>
-            {/* <Markdown children={innerHtml} /> */}
           </div>
         </Col>
         <Col span={12} style={{position:'sticky',top: '60px'}}>

@@ -14,8 +14,10 @@
     "html-to-md": "^0.3.5",
     "markdown-to-jsx": "^6.11.4",
     "marked": "^1.1.1",
+    "md5": "^2.2.1",
     "react": "^16.8.6",
-    "react-dom": "^16.8.6"
+    "react-dom": "^16.8.6",
+    "store2": "^2.11.2"
   },
   "devDependencies": {
     "@types/jest": "^23.3.12",
