@@ -74,6 +74,12 @@ export default function () {
     // console.log(content.current.innerHTML);
     console.log(html2md(content.current.innerHTML))
   }
+
+  const onReTranslate =() => {
+    store.remove(fileId)
+    store.remove('textMap')
+    setFileId(0)
+  }
   return (
     <Content style={{textAlign: 'left'}}>
       <Row>
@@ -94,7 +100,8 @@ export default function () {
             <TextArea className={styles['target-content']} rows={5} value={targetText} onChange={changeText}></TextArea>
             <div style={{marginTop: '10px'}}>
               <Button onClick={onSave} style={{marginRight: '10px'}}>保存</Button>
-              <Button onClick={onTransfer}>转译</Button>
+              <Button onClick={onTransfer} style={{marginRight: '10px'}}>转译</Button>
+              <Button type="danger" onClick={onReTranslate}>推倒重来</Button>
             </div>
             
           </section>
